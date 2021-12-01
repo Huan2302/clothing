@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd"
+             version="2.2">
+    <persistence-unit name="SalesDB">
+
+        <class>com.clothingShop.customer.entity.Brand</class>
+        <class>com.clothingShop.customer.entity.Category</class>
+        <class>com.clothingShop.customer.entity.Oder</class>
+        <class>com.clothingShop.customer.entity.OderDetail</class>
+        <class>com.clothingShop.customer.entity.Product_img</class>
+        <class>com.clothingShop.customer.entity.Product</class>
+        <class>com.clothingShop.customer.entity.User</class>
+
+
+        <properties>
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/clothingShop" />
+            <property name="javax.persistence.jdbc.user" value="root" />
+            <property name="javax.persistence.jdbc.password" value="12345678" />
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.format_sql" value="true" />
+
+        </properties>
+    </persistence-unit>
+</persistence>
