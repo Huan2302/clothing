@@ -1,7 +1,9 @@
 package com.clothingShop.customer.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +46,7 @@ public class User{
         this.userName = userName;
     }
 
-    @Size(min = 6,max = 15, message = "vui lòng nhập từ 6-15 kí tự")
+    @Size(min = 6, message = "vui lòng nhập ít nhát 6 kí tự")
     public String getPassword() {
         return password;
     }

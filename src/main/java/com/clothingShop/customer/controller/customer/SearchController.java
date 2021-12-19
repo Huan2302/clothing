@@ -1,33 +1,30 @@
 package com.clothingShop.customer.controller.customer;
 
-import com.clothingShop.customer.constant.MessageConstant;
 import com.clothingShop.customer.entity.Oder;
 import com.clothingShop.customer.entity.OderDetail;
 import com.clothingShop.customer.entity.User;
-import com.clothingShop.customer.service.BrandService;
-import com.clothingShop.customer.service.CategoryService;
-import com.clothingShop.customer.service.OderDetailService;
-import com.clothingShop.customer.service.OderService;
+import com.clothingShop.customer.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-public class CartController {
+public class SearchController {
 
+    @Autowired private CategoryService categoryService;
+    @Autowired private ProductService productService;
+    @Autowired private BrandService brandService;
     @Autowired private OderService oderService;
     @Autowired private OderDetailService oderDetailService;
-    @Autowired private CategoryService categoryService;
-    @Autowired private BrandService brandService;
 
     @ModelAttribute
     public void modelAtr(Model model, HttpSession session){
@@ -48,31 +45,12 @@ public class CartController {
         model.addAttribute("listBrand",brandService.listAll());
     }
 
-    @RequestMapping("/gio-hang")
-    public ModelAndView getCart(){
-        ModelAndView mav = new ModelAndView("public/cart");
+    @RequestMapping(value = "tim-kiem",method = RequestMethod.POST)
+    public ModelAndView search(@RequestParam("search")String search){
+        ModelAndView mav = new ModelAndView("public/c-product");
+        mav.addObject("name","Tìm tin");
+        mav.addObject("listById",productService.search(search));
         return mav;
     }
 
-    @RequestMapping("/gio-hang/del")
-    private String del(@RequestParam long id,@RequestParam long oderId,@RequestParam float total
-            ,@RequestParam float oderTotal
-            , RedirectAttributes re){
-        try{
-            oderService.editTotal(oderTotal-total,oderId);
-            oderDetailService.delete(id);
-            re.addFlashAttribute("msg", MessageConstant.DELETE_SUSSCESS);
-        }catch (Exception e){
-            re.addFlashAttribute("msg", MessageConstant.DELETE_ERROR);
-            return "redirect:/gio-hang?err=1";
-        }
-        return "redirect:/gio-hang";
-    }
-
-    @RequestMapping("/pay")
-    private String pay(@RequestParam long id,RedirectAttributes re){
-        oderService.pay(id);
-        re.addFlashAttribute("msg",MessageConstant.PAY_SUSSCESS);
-        return "redirect:/gio-hang";
-    }
 }

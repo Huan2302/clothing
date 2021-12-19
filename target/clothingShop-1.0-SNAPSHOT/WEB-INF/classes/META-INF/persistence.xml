@@ -12,6 +12,7 @@
         <class>com.clothingShop.customer.entity.Product_img</class>
         <class>com.clothingShop.customer.entity.Product</class>
         <class>com.clothingShop.customer.entity.User</class>
+        <class>com.clothingShop.customer.entity.Suggest</class>
 
 
         <properties>

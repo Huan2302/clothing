@@ -1,9 +1,12 @@
 package com.clothingShop.customer.controller.customer;
 
+import com.clothingShop.customer.JSON.JsonReader;
 import com.clothingShop.customer.entity.Oder;
 import com.clothingShop.customer.entity.OderDetail;
+import com.clothingShop.customer.entity.Product;
 import com.clothingShop.customer.entity.User;
 import com.clothingShop.customer.service.*;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,7 +27,7 @@ public class DetailController {
     @Autowired private BrandService brandService;
     @Autowired private OderService oderService;
     @Autowired private OderDetailService oderDetailService;
-
+    @Autowired private SuggestService suggestService;
     @ModelAttribute
     public void modelAtr(Model model, HttpSession session){
         User user = (User) session.getAttribute("user");
@@ -46,20 +50,33 @@ public class DetailController {
     @GetMapping("/san-pham/{id}")
     public ModelAndView home(@PathVariable(name = "id") Long id, HttpSession session){
         ModelAndView mav = new ModelAndView("public/detail-product");
-//
-//        User user = (User) session.getAttribute("user");
-//        List<OderDetail> list = new ArrayList<>();
-//        if (user!=null){
-//            Oder oder = oderService.findOderByUser(user);
-//            list = oderDetailService.findAllByOderDetailId(oder.getId());
-//        }else {
-//            list=null;
-//        }
-//        mav.addObject("listCart",list);
-//
-//        mav.addObject("listCategory", categoryService.listAll());
-//        mav.addObject("listBrand",brandService.listAll());
-        mav.addObject("product",productService.get(id));
+        productService.updateviews(id);
+        Product p =productService.get(id);
+        User user = (User) session.getAttribute("user");
+        List<Product> listSuggest = new ArrayList<>();
+        if (user != null){
+            //suggest
+            suggestService.suggest(p,user);
+            JsonReader jsonReader = new JsonReader();
+            try {
+                List<JSONObject> list = jsonReader.listSuggest(user.getId());
+                if (list == null){
+                    listSuggest = productService.getAllSuggest(p.getCategory().getId(),id);
+                }else {
+                    for (JSONObject item:list){
+                        long ids = Long.parseLong(String.valueOf(item.get("id")));
+                        Product product = productService.get(ids);
+                        listSuggest.add(product);
+                    }
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else {
+            listSuggest = productService.getAllSuggest(p.getCategory().getId(),id);
+        }
+        mav.addObject("suggest",listSuggest);
+        mav.addObject("product",p);
         return mav;
     }
 }

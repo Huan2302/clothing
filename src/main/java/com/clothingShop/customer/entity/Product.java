@@ -19,6 +19,7 @@ public class Product {
     @Column(columnDefinition = "TEXT")
     @NotEmpty(message = "Vui lòng nhập mô tả")
     private String description;
+    private long views;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.MERGE)
     private List<Product_img> imgs = new ArrayList<>();
@@ -34,6 +35,14 @@ public class Product {
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.MERGE)
     private List<OderDetail> oders = new ArrayList<>();
+
+    public long getViews() {
+        return views;
+    }
+
+    public void setViews(long views) {
+        this.views = views;
+    }
 
     public Long getId() {
         return id;

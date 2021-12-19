@@ -1,10 +1,7 @@
 package com.clothingShop.customer.service;
 
 import com.clothingShop.customer.entity.Brand;
-import com.clothingShop.customer.entity.Category;
-import com.clothingShop.customer.entity.Product;
 import com.clothingShop.customer.repository.BrandReponsitory;
-import com.clothingShop.customer.repository.CategoryReponsitory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
