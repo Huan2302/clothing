@@ -67,7 +67,7 @@ public class OderDetailService {
                 oderDetail.setTotal(quantity*(product.getPrice()));
             }
             oder.setOderDate(new Date());
-            oder.setTotal(oder.getTotal()+oderDetail.getTotal());
+            oder.setTotal(oder.getTotal()+oderDetail.getUnitPrice()*quantity);
         }else {
             oder = new Oder();
             oder.setUser(user);
