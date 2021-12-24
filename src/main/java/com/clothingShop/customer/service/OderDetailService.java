@@ -49,9 +49,7 @@ public class OderDetailService {
 
         Oder oder = oderReponsitory.findOderByUserId(user.getId());
 
-        System.out.println("1");
         OderDetail oderDetail=null;
-        System.out.println("2");
         if (oder != null && oder.getStatus() == 0){
             oderDetail = repo.findByProductAndOder(product,oder);
             if (oderDetail != null){
@@ -80,15 +78,10 @@ public class OderDetailService {
             oderDetail.setQuantity(quantity);
             oderDetail.setUnitPrice(product.getPrice());
             oderDetail.setTotal(quantity*(product.getPrice()));
-            System.out.println("3");
             oder.setTotal(oderDetail.getTotal());
         }
-        System.out.println("dung");
-
         oderService.save(oder);
-        System.out.println("4");
         save(oderDetail);
-        System.out.println("5");
         return addedQuantity;
     }
 }
