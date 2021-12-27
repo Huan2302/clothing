@@ -63,7 +63,7 @@
             <h4><a href="javascript:void(0)">${product.name}</a></h4>
             <div class="product-rating"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star-half-alt"></i> <i class="far fa-star"></i> <span class="txt-gray">| 5 customer review</span> </div>
             <div class="product-price"> <ins>${product.price} đ</ins>  </div>
-            <p class="d-md-none d-lg-block text-justify">${product.description}</p>
+<%--            <p class="d-md-none d-lg-block text-justify">${product.description}</p>--%>
 
           </div>
           <div class="row">
@@ -120,7 +120,7 @@
   <!--===== Related Product Section =====-->
   <section>
     <div class="container">
-      <div class="row">
+        <div class="row">
         <div class="col-lg-12">
           <div class="col-lg-8 offset-lg-2 text-center title-line mb-50">
             <h2 class="slick-title">Sản phẩm bạn có thể quan tâm</h2>
@@ -133,18 +133,6 @@
             <c:choose>
               <c:when test="${not empty suggest}">
                 <c:forEach items="${suggest}" var="s">
-<%--                  <div class="productblock product-wrap">--%>
-<%--                    <div class="Content"> <a href="javascript:void(0)"> <img class="img-fluid" src="<%=request.getContextPath()%>/teamplate/public/images/shop/06.jpg" alt=""> </a> <span class="new">NEW</span>--%>
-<%--                      <div class="product-content-wrap">--%>
-<%--                        <div class="product-content">--%>
-<%--                          <div class="product-hover"> <a class="btn-cart" title="Add To Cart" href="javascript:void(0)"><i class="fas fa-shopping-cart"></i></a> <a class="btn-view" title="Quick View" href="javascript:void(0)" data-toggle="modal" data-target="#quickview"><i class="fas fa-eye"></i></a> <a class="btn-wishlist" title="Add To Wishlist" href="javascript:void(0)"><i class="fas fa-heart"></i></a> <a class="btn-wishlist" title="Add To Compare" href="compare.html"><i class="fas fa-sync-alt"></i></a> </div>--%>
-<%--                        </div>--%>
-<%--                      </div>--%>
-<%--                      <div class="product-title"><a href="product-detail-fullwidth.html">Product name</a></div>--%>
-<%--                      <div class="product-rating"> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star"></i> <i class="fas fa-star-half-alt"></i> <i class="far fa-star"></i></div>--%>
-<%--                      <div class="product-price"> <ins>$12.49</ins> <del>$24.99</del> </div>--%>
-<%--                    </div>--%>
-<%--                  </div>--%>
                   <div class="productblock product-wrap">
                     <div class="Content"> <a href="${pageContext.request.contextPath}/san-pham/${s.id}">
 
